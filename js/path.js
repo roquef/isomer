@@ -1,4 +1,4 @@
-var Point = require('./point');
+import Point from './point.js';
 
 /**
  * Path utility class
@@ -176,4 +176,4 @@ Path.Star = function(origin, outerRadius, innerRadius, points) {
 
 
 /* Expose the Path constructor */
-module.exports = Path;
+export default Path;

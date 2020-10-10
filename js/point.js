@@ -113,4 +113,4 @@ Point.distance = function(p1, p2) {
 };
 
 
-module.exports = Point;
+export default Point;

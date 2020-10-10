@@ -121,4 +121,4 @@ Color.prototype._hue2rgb = function(p, q, t) {
   return p;
 };
 
-module.exports = Color;
+export default Color;

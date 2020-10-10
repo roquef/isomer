@@ -38,4 +38,4 @@ Vector.prototype.normalize = function() {
   return new Vector(this.i / magnitude, this.j / magnitude, this.k / magnitude);
 };
 
-module.exports = Vector;
+export default Vector;

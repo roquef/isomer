@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 
-module.exports = function(options) {
+export default function(options) {
   options = (options ? options : {});
 
   var plugins = [];

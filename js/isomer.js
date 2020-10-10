@@ -1,9 +1,10 @@
-var Canvas = require('./canvas');
-var Color = require('./color');
-var Path = require('./path');
-var Point = require('./point');
-var Shape = require('./shape');
-var Vector = require('./vector');
+import Canvas from './canvas.js';
+import Color from './color.js';
+import Path from './path.js';
+import Point from './point.js';
+import Shape from './shape.js';
+import Vector from './vector.js';
+import Sprite from './sprite.js';
 
 
 /**
@@ -15,7 +16,7 @@ function Isomer(canvasId, options) {
   options = options || {};
 
   this.canvas = new Canvas(canvasId);
-  this.angle = Math.PI / 6;
+  this.angle = options.angle || Math.PI / 6;
 
   this.scale = options.scale || 70;
 
@@ -43,22 +44,22 @@ function Isomer(canvasId, options) {
 /**
  * Sets the light position for drawing.
  */
-Isomer.prototype.setLightPosition = function(x, y, z) {
+Isomer.prototype.setLightPosition = function (x, y, z) {
   this.lightPosition = new Vector(x, y, z);
   this.lightAngle = this.lightPosition.normalize();
 };
 
-Isomer.prototype._translatePoint = function(point) {
+Isomer.prototype._translatePoint = function (point) {
   /**
    * X rides along the angle extended from the origin
    * Y rides perpendicular to this angle (in isometric view: PI - angle)
    * Z affects the y coordinate of the drawn point
    */
   var xMap = new Point(point.x * this.transformation[0][0],
-                       point.x * this.transformation[0][1]);
+    point.x * this.transformation[0][1]);
 
   var yMap = new Point(point.y * this.transformation[1][0],
-                       point.y * this.transformation[1][1]);
+    point.y * this.transformation[1][1]);
 
   var x = this.originX + xMap.x + yMap.x;
   var y = this.originY - xMap.y - yMap.y - (point.z * this.scale);
@@ -71,7 +72,7 @@ Isomer.prototype._translatePoint = function(point) {
  *
  * This method also accepts arrays
  */
-Isomer.prototype.add = function(item, baseColor) {
+Isomer.prototype.add = function (item, baseColor) {
   if (Object.prototype.toString.call(item) == '[object Array]') {
     for (var i = 0; i < item.length; i++) {
       this.add(item[i], baseColor);
@@ -85,14 +86,21 @@ Isomer.prototype.add = function(item, baseColor) {
     for (var j = 0; j < paths.length; j++) {
       this._addPath(paths[j], baseColor);
     }
+  } else if (item instanceof Sprite) {
+    this._addSprite(item);
   }
 };
 
 
+Isomer.prototype._addSprite = function(item) {
+  let position = this._translatePoint(item.options.position);
+  this.canvas.sprite(position, item);
+}
+
 /**
  * Adds a path to the scene
  */
-Isomer.prototype._addPath = function(path, baseColor) {
+Isomer.prototype._addPath = function (path, baseColor) {
   /* Default baseColor */
   baseColor = baseColor || new Color(120, 120, 120);
 
@@ -116,7 +124,7 @@ Isomer.prototype._addPath = function(path, baseColor) {
  * Precalculates transformation values based on the current angle and scale
  * which in theory reduces costly cos and sin calls
  */
-Isomer.prototype._calculateTransformation = function() {
+Isomer.prototype._calculateTransformation = function () {
   this.transformation = [
     [
       this.scale * Math.cos(this.angle),
@@ -136,6 +144,12 @@ Isomer.Path = Path;
 Isomer.Point = Point;
 Isomer.Shape = Shape;
 Isomer.Vector = Vector;
+Isomer.Sprite = (pos, opts) => {
+  return new Sprite(pos, opts);
+};
+Isomer.util = {
+  fromPointToCoordinate: Isomer.prototype._translatePoint
+}
 
 /* Expose Isomer API */
-module.exports = Isomer;
+export default Isomer;

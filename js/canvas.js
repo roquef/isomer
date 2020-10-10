@@ -6,11 +6,12 @@ function Canvas(elem) {
   this.height = elem.height;
 }
 
-Canvas.prototype.clear = function() {
+Canvas.prototype.clear = function () {
   this.ctx.clearRect(0, 0, this.width, this.height);
 };
 
-Canvas.prototype.path = function(points, color) {
+Canvas.prototype.path = function (points, color) {
+  // console.log(points);
   this.ctx.beginPath();
   this.ctx.moveTo(points[0].x, points[0].y);
 
@@ -30,4 +31,13 @@ Canvas.prototype.path = function(points, color) {
   this.ctx.restore();
 };
 
-module.exports = Canvas;
+Canvas.prototype.sprite = function (position, sprite) {
+  let draw = () => {
+    this.ctx.drawImage(sprite.img, position.x - (sprite.img.width / 2), position.y - sprite.img.height, sprite.img.width, sprite.img.height);
+  };
+
+  !sprite.img.complete ? sprite.img.onload = draw : draw();
+};
+
+
+export default Canvas;

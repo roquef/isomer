@@ -1,5 +1,5 @@
-var Path = require('./path');
-var Point = require('./point');
+import Path from './path.js';
+import Point from './point.js';
 
 /**
  * Shape utility class
@@ -226,4 +226,4 @@ Shape.Cylinder = function(origin, radius, vertices, height) {
 };
 
 
-module.exports = Shape;
+export default Shape;

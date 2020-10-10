@@ -10,7 +10,7 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
+		export default factory();
 	else if(typeof define === 'function' && define.amd)
 		define(factory);
 	else if(typeof exports === 'object')
@@ -67,7 +67,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Entry point for the Isomer API
 	 */
-	module.exports = __webpack_require__(5);
+	export default __webpack_require__(5);
 
 
 /***/ },
@@ -189,7 +189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 
-	module.exports = Point;
+	export default Point;
 
 
 /***/ },
@@ -374,7 +374,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	/* Expose the Path constructor */
-	module.exports = Path;
+	export default Path;
 
 
 /***/ },
@@ -413,7 +413,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.ctx.restore();
 	};
 
-	module.exports = Canvas;
+	export default Canvas;
 
 
 /***/ },
@@ -543,7 +543,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return p;
 	};
 
-	module.exports = Color;
+	export default Color;
 
 
 /***/ },
@@ -690,7 +690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Isomer.Vector = Vector;
 
 	/* Expose Isomer API */
-	module.exports = Isomer;
+	export default Isomer;
 
 
 /***/ },
@@ -925,7 +925,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 
-	module.exports = Shape;
+	export default Shape;
 
 
 /***/ },
@@ -972,7 +972,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return new Vector(this.i / magnitude, this.j / magnitude, this.k / magnitude);
 	};
 
-	module.exports = Vector;
+	export default Vector;
 
 
 /***/ }
